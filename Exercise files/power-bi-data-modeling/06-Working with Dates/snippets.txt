@@ -1,0 +1,13 @@
+Total Budget = CALCULATE(SUM('Movie Values'[Budget]), USERELATIONSHIP('Movie Values'[Release Date], 'Date'[Date]))
+
+Year = Year([Date])
+
+MonthYear = FORMAT([Date], "MMM") & " " & [Year]
+
+MonthSort = YEAR([Date]) & "-" & RIGHT("0" & MONTH([Date]), 2)
+
+Revenue YTD = TOTALYTD([Total Revenue], 'Date'[Date], ALL('Date'))
+
+Revenue Last Year = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))
+
+Balance Forward Revenue = OPENINGBALANCEMONTH([Revenue YTD], 'Date'[Date])

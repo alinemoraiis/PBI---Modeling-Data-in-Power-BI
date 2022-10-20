@@ -1,0 +1,42 @@
+Age = IF(ISBLANK([Year Died]) && ISBLANK([Year Born]), BLANK(), IF(ISBLANK([Year Died]), YEAR(NOW()) - [Year Born], [Year Died]-[Year Born]))
+
+Age at Filming = 
+VAR ReleaseYear = YEAR(RELATED('Movie Values'[Release Date]))
+VAR YearBorn = RELATED(Individuals[Year Born])
+VAR BlankReleaseYear = ISBLANK(ReleaseYear)
+VAR BlankYearBorn = ISBLANK(YearBorn )
+
+RETURN
+IF(
+            BlankReleaseYear || BlankYearBorn, 
+
+            BLANK(), 
+            
+            ReleaseYear - YearBorn
+            
+        )
+
+Total Budget = SUM('Movie Values'[Budget])
+
+Total Revenue = SUM('Movie Revenue'[Revenue])
+
+Gross Profit = [Total Revenue] - [Total Budget]
+
+Gross Profit % = IF(ISBLANK([Total Revenue]), BLANK(), [Gross Profit] / [Total Revenue])
+
+let
+    Source = {1980..2020},
+    #"Converted to List" = {Source},
+    #"Converted to List1" = #"Converted to List"{0}
+in
+    #"Converted to List1"
+
+
+Title = "Movies Released Between " & FIRSTNONBLANK('Movies'[Year], TRUE()) & " and  " & LASTNONBLANK('Movies'[Year], TRUE())
+
+
+
+Adjusted Revenue = [Total Revenue] * Multiplier[Multiplier Value]
+
+
+
