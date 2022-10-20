@@ -1,1 +1,0 @@
-if [Poster Path] <> null then "https://image.tmdb.org/t/p/w500" & [Poster Path] else null
